@@ -61,3 +61,19 @@ func AuthRequest(c *gin.Context) (*Request, bool) {
 	}
 	return r, true
 }
+
+func (req Request) Auth() *Request {
+	req.IsAuth = false
+	req.IsAdmin = false
+	authHeader := req.Context.GetHeader("Authorization")
+	if authHeader != "" {
+		req.DB.Where("token = ? ", authHeader).First(&req.User)
+		if req.User.ID != 0 {
+			req.IsAuth = true
+			if req.User.Group == "admin"{
+				req.IsAdmin = true
+			}
+		}
+	}
+	return &req
+}
