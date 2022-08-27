@@ -23,6 +23,8 @@ type Request struct {
 	Lang 	   string
 }
 
+func (req *Request) Share() {}
+
 // handle request data
 func Req() func(c *gin.Context) *Request {
 	return func(c *gin.Context) *Request {
