@@ -35,3 +35,10 @@ func Req() func(c *gin.Context) *Request {
 		return &request
 	}
 }
+
+// init new request
+func NewRequest(c *gin.Context) *Request {
+	request := Req()
+	return request(c)
+}
+
