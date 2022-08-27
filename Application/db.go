@@ -19,3 +19,11 @@ func makeConnection()*gorm.DB{
 
 	return db
 }
+
+func returnConnection (db *gorm.DB) *sql.DB{
+	connection, err := db.DB()
+	if err != nil {
+		fmt.Println("error while getting the connection", err.Error())
+	}
+	return connection
+}
