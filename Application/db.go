@@ -8,6 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
+
 func makeConnection()*gorm.DB{
 
 	dsn := "root:@tcp(127.0.0.1:3306)/golangdb?charset=utf8mb4&parseTime=True&loc=Local"
@@ -39,5 +40,16 @@ func connectToDataBase(share shareResources) {
 		req := share.(*Request)
 		req.DB = makeConnection()
 		req.Connection = returnConnection(req.DB)
+	}
+}
+
+func CloseConnection(share shareResources) {
+	switch share.(type){
+	case *Application:
+		app := share.(*Application)
+		app.Connection.Close()
+	case *Request:
+		req := share.(*Request)
+		req.Connection.Close()
 	}
 }
