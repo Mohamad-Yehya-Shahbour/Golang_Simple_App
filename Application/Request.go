@@ -22,3 +22,14 @@ type Request struct {
 	IsAdmin	   bool
 	Lang 	   string
 }
+
+// handle request data
+func Req() func(c *gin.Context) *Request {
+	return func(c *gin.Context) *Request {
+		var request Request
+		request.Context = c
+		connectToDataBase(&request)
+		SetLang(&request)
+		return &request
+	}
+}
