@@ -27,3 +27,17 @@ func returnConnection (db *gorm.DB) *sql.DB{
 	}
 	return connection
 }
+
+// connect to db
+func connectToDataBase(share shareResources) {
+	switch share.(type){
+	case *Application:
+		app := share.(*Application)
+		app.DB = makeConnection()
+		app.Connection = returnConnection(app.DB)
+	case *Request:
+		req := share.(*Request)
+		req.DB = makeConnection()
+		req.Connection = returnConnection(req.DB)
+	}
+}
