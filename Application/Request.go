@@ -42,3 +42,8 @@ func NewRequest(c *gin.Context) *Request {
 	return request(c)
 }
 
+func SetLang(req *Request){
+	lang := gotrans.DetectLanguage(req.Context.GetHeader("Accept-Language"))
+	gotrans.SetDefaultLocale(lang)
+	req.Lang = lang
+}
