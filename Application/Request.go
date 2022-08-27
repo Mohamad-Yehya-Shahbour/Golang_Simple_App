@@ -12,3 +12,13 @@ import (
 type shareResources interface {
 	Share()
 }
+
+type Request struct {
+	Context    *gin.Context
+	DB         *gorm.DB
+	Connection *sql.DB
+	User       *Models.User
+	IsAuth     bool
+	IsAdmin	   bool
+	Lang 	   string
+}
