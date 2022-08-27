@@ -51,3 +51,13 @@ func SetLang(req *Request){
 func NewRequestWithAuth(c *gin.Context) *Request {
 	return NewRequest(c).Auth()
 }
+
+
+func AuthRequest(c *gin.Context) (*Request, bool) {
+	r := NewRequestWithAuth(c)
+	if !r.IsAdmin {
+		r.NotAuth()
+		return r, false
+	}
+	return r, true
+}
